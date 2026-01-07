@@ -1,12 +1,9 @@
 ```mermaid
-flowchart LR
+flowchart TD
   U["User"] --> H["Host Shell (HCM)"]
 
-  H --> REA["remoteEntry.js (mfe-a)"]
-  H --> REB["remoteEntry.js (mfe-b)"]
-
-  REA --> A["MFE A (RemoteApp)"]
-  REB --> B["MFE B (RemoteApp)"]
+  H --> A["MFE A (RemoteApp)"]
+  H --> B["MFE B (RemoteApp)"]
 
   A --> SDK["Client Interaction SDK"]
   B --> SDK
@@ -20,5 +17,4 @@ flowchart LR
   SORB --> GW
 
   GW --> SDK
-
 ```
