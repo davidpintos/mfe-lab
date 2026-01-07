@@ -1,0 +1,10 @@
+{
+  "name": "mfe-lab",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w apps/host"
+  }
+}
