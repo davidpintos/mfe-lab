@@ -1,8 +1,10 @@
 ## Micro-Frontend Proof of Concept
 
-This repository contains a **Micro-Frontend Proof of Concept** demonstrating **runtime composition** using a **Host Shell** and **independently deployed remotes**, inspired by real-world **enterprise architectures**.
+This repository contains a **Micro-Frontend Proof of Concept** demonstrating **runtime composition** using a **Host Shell** and **independently deployed remotes**.
 
-The Host dynamically decides which Micro-Frontend to render at runtime, while each MFE is built and deployed independently. This setup reflects common enterprise patterns such as Host-driven composition, runtime module federation, and clear separation of responsibilities between the container and the remotes.
+The Host dynamically decides which Micro-Frontend to render at runtime, while each MFE is built and deployed independently. 
+
+This setup simulates common patterns such as Host-driven composition, runtime module federation, and clear separation of responsibilities between the container and the remotes.
 
 ## Architecture
 
@@ -13,11 +15,11 @@ The system is composed of the following layers:
   rendered at runtime.
 
 - **Micro-Frontends (MFEs)**  
-  Independently built and deployed UI modules. MFEs are SOR-agnostic and never
-  call backend systems directly.
+  Independently built and deployed UI modules. MFEs are SOR-agnostic and don't
+  call BE systems directly.
 
 - **Client Interaction SDK**  
-  A shared SDK used by MFEs to request data or execute operations. The SDK only
+  A shared SDK library, used by MFEs to request data or execute operations. The SDK only
   forwards requests and does not process business data.
 
 - **Service Gateway**  
@@ -25,7 +27,7 @@ The system is composed of the following layers:
   based on client context.
 
 - **Systems of Record (SORs)**  
-  Authoritative backend systems that own and serve domain data.
+  Backend systems that own and serve domain data.
 
 ## Project Structure
 ```text
@@ -62,16 +64,6 @@ Run the Host Shell in development mode:
 ```bash
 npm run dev -w apps/host
 ```
-## Runtime Flow
-
-1. The user navigates to a page in the Host Shell.
-2. The Host evaluates client-based rules and decides which MFE to load.
-3. The selected MFE is loaded dynamically via Module Federation.
-4. User interactions inside the MFE trigger calls to the Client Interaction SDK.
-5. The SDK forwards requests to the Service Gateway with the required context.
-6. The Service Gateway resolves the appropriate System of Record.
-7. The SOR processes the request and returns the response.
-8. Data flows back to the MFE, which renders the UI.
 
 ## Flow Diagram
 ```mermaid
@@ -94,6 +86,16 @@ flowchart TD
 
   GW --> SDK
 ```
+## Runtime Flow
+
+1. The user navigates to a page in the Host Shell.
+2. The Host evaluates client-based rules and decides which MFE to load.
+3. The selected MFE is loaded dynamically via Module Federation.
+4. User interactions inside the MFE trigger calls to the Client Interaction SDK.
+5. The SDK forwards requests to the Service Gateway with the required context.
+6. The Service Gateway resolves the appropriate System of Record.
+7. The SOR processes the request and returns the response.
+8. Data flows back to the MFE, which renders the UI.
 
 ## Sequence Diagram
 ```mermaid
@@ -132,7 +134,7 @@ sequenceDiagram
 - This repository is implemented as a **monorepo** for simplicity and learning purposes.
 - In a real-world production setup, the **Host Shell, each Micro-Frontend, the SDK, the Gateway, and each System of Record would typically live in separate repositories** and be built and deployed independently.
 - Client identity, authorization, and roles are currently hardcoded to simplify the flow.
-- Backend services are mock implementations and do not represent production-ready systems.
+- BE services are mock implementations and do not represent production-ready systems.
 - Routing logic inside the Service Gateway is static and configuration-based.
 - This POC focuses on **architectural flow and responsibilities**, not on production hardening, security, or scalability.
 
