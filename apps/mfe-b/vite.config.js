@@ -16,4 +16,5 @@ export default defineConfig({
   ],
   build: { target: "esnext" },
   preview: { port: 3002 },
+  server: { port: 3002 },
 });
